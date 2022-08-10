@@ -1,0 +1,18 @@
+<body class="mat-app-background"><mat-sidenav-container>
+<div class="root-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <h1 class="titolo">{{title}}</h1> <h2 class="account"><span class="showAccount" [hidden]="connected"></span></h2><div class="admin">{{tmpAddr}}</div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+
+<div [hidden]="!connected">
+  <div class="button-container">
+    <button mat-flat-button color="primary" class="connectMetamask">Connect to MetaMask</button>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+
+</mat-sidenav-container></body>

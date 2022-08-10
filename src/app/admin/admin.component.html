@@ -1,0 +1,28 @@
+<div class="card-container">
+  <div class="cards">
+    <mat-card class="insertion-card">
+      <mat-card-title class="project">Insert new charity association</mat-card-title>
+
+      <mat-card-content class="project">
+        <mat-form-field class="inputDigit" appearance="fill">
+          <p><mat-label>Project name</mat-label>
+          <input matInput type="text" [(ngModel)]="nameP"></p>
+        </mat-form-field>
+        <mat-form-field class="inputDigit" appearance="fill">
+          <p><mat-label>Project address</mat-label>
+          <input matInput type="text" [(ngModel)]="addressP"></p>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions class="create">
+        <button mat-raised-button class="button" color="primary" (click)="create()">Insert</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+<div class="donate">
+  <h1 style="font-size: 40px;">Donate</h1>
+  <app-donate></app-donate>
+</div>
+
+</div>

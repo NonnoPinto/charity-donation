@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Square+Peg&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100&display=swap');
+
+.root-container{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.titolo{
+  font-family: 'Square Peg', cursive;
+  font-size: 50px;
+}
+
+.button-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 4%;
+}
+
+.account{
+  display: flex;
+  margin-left: 3%;
+  font-family: 'Arima', cursive;
+  font-size: 30px;
+}
+
+.connectMetamask{
+  height: 50px;
+  width: 300px;
+  text-size-adjust: auto;
+  font-family: 'Square Peg', cursive;
+  font-size: xx-large;
+}
+
+.admin{
+  display: flex;
+  justify-content: right;
+  margin-left: auto;
+}
+

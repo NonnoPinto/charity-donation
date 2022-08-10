@@ -1,0 +1,28 @@
+.card-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 4%;
+}
+
+.cards{
+  margin-left: 4%;
+}
+
+.project{
+  display: flex;
+  justify-content: center;
+}
+
+.create{
+  display: flex;
+  justify-content: center;
+}
+
+.donate{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4%;
+}
