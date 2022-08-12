@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs';
 import { ConnectionService } from './connection.service'
+import { ErrorComponent } from './error/error.component';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { ConnectionService } from './connection.service'
 export class AppComponent {
   title = 'Charity Ethereum Donation';
 
-  constructor(private _connectionService: ConnectionService, private router: Router) { }
+  constructor(private _connectionService: ConnectionService, private router: Router, private dialog: MatDialog) { }
 
   _window: any;
   ethereumButton: any;
@@ -43,12 +44,21 @@ export class AppComponent {
 
   async getAccount() {
     //-->Indirizzo<--
-    this.access = await this._connectionService.web3.eth.requestAccounts();
-    this.connected = false;
-    this.access = this.access[0];
-    this.showAccount.innerHTML = this.access;
-    this._connectionService.access = this.access;
-    this.landPerson();
+    if (!this._window.ethereum){
+      const dialogRef = this.dialog.open(ErrorComponent, {
+        data: {
+          error: "Install or open MetaMask!",
+        },
+      });
+    }
+    else{
+      this.access = await this._connectionService.web3.eth.requestAccounts();
+      this.connected = false;
+      this.access = this.access[0];
+      this.showAccount.innerHTML = this.access;
+      this._connectionService.access = this.access;
+      this.landPerson();
+    }
   }
 
   // Scegli landing page
@@ -95,6 +105,10 @@ export class AppComponent {
       this._connectionService.access = this.access;
       this.landPerson();
     }
+  }
+
+  refresh(){
+    this._window.location.reload();
   }
 }
 

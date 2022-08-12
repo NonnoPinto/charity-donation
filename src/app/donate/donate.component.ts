@@ -54,14 +54,13 @@ export class DonateComponent implements OnInit {
         },
       });
     }
-    /* Magari un giorno la implemento, intanto se ne occupa metamask */
-    /* else if(amount>myAmount){
+    else if(amount>this.myAmount){
       const dialogRef = this.dialog.open(ErrorComponent, {
         data: {
-          error: "You don't have enogh ETH!",
+          error: "You don't have enough ETH!",
         },
       });
-    } */
+    }
     else{
       const dialogRef = this.dialog.open(DonateDialogComponent, {
         data: {
