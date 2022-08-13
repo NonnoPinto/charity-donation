@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Thank you!</h2>
 <mat-dialog-content class="mat-typography">
-  <p>Do you want to donate {{data.amount}} ETH to {{data.charity}}'s' {{data.project}} project?</p>
+  <p>Do you want to donate {{data.amount}} ETH to {{data.charity}}'s {{data.project}} project?<br>It has received {{data.total | number:'1.0-5'}} ETH to date.</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>No</button>

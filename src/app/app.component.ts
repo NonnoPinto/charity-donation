@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 import { ConnectionService } from './connection.service'
 import { ErrorComponent } from './error/error.component';
 
@@ -21,12 +22,25 @@ export class AppComponent {
   access: any;
   tmpAddr: any;
 
-  ngOnInit() {
+  async ngOnInit() {
+    this._window = window;
+    let chainId;
+    await this._connectionService.web3.eth.net.getId().then((value) => chainId = value);
+    if (chainId != 42){
+      const dialogRef = this.dialog.open(ErrorComponent, {
+        data: {
+          error: "Switch to Kovan Network!",
+        },
+      });
+      await this._window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x2A' }],
+      });
+    }
     /* this.checkConnection(); */
     const handleAccountsChanged = this.handleAccountsChanged.bind(this) as unknown as () => void;
     this._connectionService.web3.eth.getAccounts().then(handleAccountsChanged);
-    //verifico se sono già collegato
-    this._window = window;
+
     this._window.ethereum.on('chainChanged', () => this._window.location.reload());
     this._window.ethereum.on('accountsChanged', (_newAccounts: any) => this._window.location.reload());
   }
@@ -47,7 +61,7 @@ export class AppComponent {
     if (!this._window.ethereum){
       const dialogRef = this.dialog.open(ErrorComponent, {
         data: {
-          error: "Install or open MetaMask!",
+          error: "Install MetaMask!",
         },
       });
     }

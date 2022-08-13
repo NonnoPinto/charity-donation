@@ -4,7 +4,7 @@ import { forkJoin, from } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DonateDialogComponent } from '../donate-dialog/donate-dialog.component';
 import { ErrorComponent } from '../error/error.component';
-import { compileFactoryFunction } from '@angular/compiler';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-donate',
@@ -13,7 +13,7 @@ import { compileFactoryFunction } from '@angular/compiler';
 })
 export class DonateComponent implements OnInit {
 
-  constructor(private _connectionService: ConnectionService, public dialog: MatDialog) { }
+  constructor(private _connectionService: ConnectionService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   allCharities = [];
   allProject : any = [];
@@ -47,6 +47,7 @@ export class DonateComponent implements OnInit {
   }
 
   openDialog(amount, i, charity) {
+    /* console.log(amount, this.balance); */
     if(!amount || !this.myProject[i] || !charity){
       const dialogRef = this.dialog.open(ErrorComponent, {
         data: {
@@ -54,7 +55,7 @@ export class DonateComponent implements OnInit {
         },
       });
     }
-    else if(amount>this.myAmount){
+    else if(amount>this.balance){
       const dialogRef = this.dialog.open(ErrorComponent, {
         data: {
           error: "You don't have enough ETH!",
@@ -62,17 +63,39 @@ export class DonateComponent implements OnInit {
       });
     }
     else{
-      const dialogRef = this.dialog.open(DonateDialogComponent, {
-        data: {
-          amount: amount,
-          project: this.myProject[i],
-          charity: charity
-        },
-      });
+      let total;
+      this._connectionService.charityETH.methods.getDonations(charity, this.myProject[i]).call({from: this._connectionService.access})
+        .then((tot) => {
+          total = tot;
+          total = this._connectionService.web3.utils.fromWei(total, "ether");
+          console.log(total);
+          const dialogRef = this.dialog.open(DonateDialogComponent, {
+            data: {
+              amount: amount,
+              project: this.myProject[i],
+              charity: charity,
+              total: total
+            },
+          });
+        });
     }
   }
 
   setProject(project: string, i : number){
     this.myProject[i] = project;
+  }
+
+  showTotal(charity, project, i){
+    let total;
+      this._connectionService.charityETH.methods.getDonations(charity, this.myProject[i]).call({from: this._connectionService.access})
+        .then((tot) => {
+          total = tot;
+          total = this._connectionService.web3.utils.fromWei(total, "ether");
+          console.log(total);
+          let str = "This project has received " + total + " ETH to date";
+          let snackBarRef = this.snackBar.open(str, 'GOT IT', {
+            duration: 3000
+          });
+        });
   }
 }

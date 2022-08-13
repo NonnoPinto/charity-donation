@@ -5,7 +5,7 @@ import { MatCardModule  } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
@@ -36,6 +36,7 @@ import { ErrorComponent } from './error/error.component';
     MatButtonModule,
     MatCardModule,
     MatSliderModule,
+    MatSnackBarModule,
     MatInputModule,
     MatSidenavModule,
     MatToolbarModule,
