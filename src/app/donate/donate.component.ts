@@ -68,7 +68,7 @@ export class DonateComponent implements OnInit {
         .then((tot) => {
           total = tot;
           total = this._connectionService.web3.utils.fromWei(total, "ether");
-          console.log(total);
+          /* console.log(total); */
           const dialogRef = this.dialog.open(DonateDialogComponent, {
             data: {
               amount: amount,

@@ -20,9 +20,8 @@
 
 .account{
   display: flex;
-  margin-left: 3%;
+  margin-left: auto;
   font-family: 'Arima', cursive;
-  font-size: 30px;
 }
 
 .connectMetamask{

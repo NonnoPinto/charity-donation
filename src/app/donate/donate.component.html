@@ -10,9 +10,6 @@
             style="font-family:'Times New Roman', Times, serif; font-size: medium; margin: 5px;">{{project?.[0]}}</mat-radio-button>
         </mat-radio-group>
 
-        <!-- Figo ma una rogna da gestire -->
-        <!-- <mat-slider class="inputSlider" thumbLabel step="0.00001" min="0" max={{balance}} aria-label="units" [value]="donationAmount" (valueChange)="setAmount(donationAmount)"></mat-slider> -->
-
         <mat-form-field class="inputDigit" appearance="fill">
           <mat-label>Donation Amount</mat-label>
           <input matInput type="number" step="0.00001" min="0" max={{balance}} placeholder="Donation Amount" value={{myAmount}} #donation>
