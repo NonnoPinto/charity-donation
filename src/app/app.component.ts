@@ -19,30 +19,16 @@ export class AppComponent {
   ethereumButton: any;
   showAccount: any;
   connected: boolean = true;
+  chain: boolean = false;
   access: any;
   tmpAddr: any;
 
   async ngOnInit() {
     this._window = window;
-    let chainId;
-    await this._connectionService.web3.eth.net.getId().then((value) => chainId = value);
-    if (chainId != 42){
-      const dialogRef = this.dialog.open(ErrorComponent, {
-        data: {
-          error: "Switch to Kovan Network!",
-        },
-      });
-      await this._window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x2A' }],
-      });
-    }
+
     /* this.checkConnection(); */
     const handleAccountsChanged = this.handleAccountsChanged.bind(this) as unknown as () => void;
     this._connectionService.web3.eth.getAccounts().then(handleAccountsChanged);
-
-    this._window.ethereum.on('chainChanged', () => this._window.location.reload());
-    this._window.ethereum.on('accountsChanged', (_newAccounts: any) => this._window.location.reload());
   }
 
   ngAfterViewInit(): void {
@@ -54,6 +40,11 @@ export class AppComponent {
     this.ethereumButton.addEventListener('click', () => {
       this.getAccount();
     });
+
+    this.checkChain();
+
+    this._window.ethereum.on('chainChanged', () => this._window.location.reload());
+    this._window.ethereum.on('accountsChanged', (_newAccounts: any) => this._window.location.reload());
   }
 
   async getAccount() {
@@ -119,6 +110,24 @@ export class AppComponent {
       this._connectionService.access = this.access;
       this.landPerson();
     }
+  }
+
+  async checkChain(){
+    let chainId;
+    await this._connectionService.web3.eth.net.getId().then((value) => chainId = value);
+    if (chainId != 42){
+      const dialogRef = this.dialog.open(ErrorComponent, {
+        data: {
+          error: "Switch to Kovan Network!",
+        },
+      });
+      await this._window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x2A' }],
+      });
+      this.chain = false;
+    }
+    else this.chain = true;
   }
 
   refresh(){

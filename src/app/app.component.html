@@ -1,8 +1,8 @@
-<body class="mat-app-background"><mat-sidenav-container>
 <div class="root-container">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <h1 class="titolo" (click)="refresh()"><a href style="color: white; text-decoration: none;">{{title}}</a></h1> <h4 class="account"><span class="showAccount" [hidden]="connected"></span></h4><div class="admin">{{tmpAddr}}</div>
+      <h1 class="titolo" (click)="refresh()"><a href style="color: white; text-decoration: none;">{{title}}</a></h1>
+        <h4 class="account"><span class="showAccount" [hidden]="connected"></span></h4><div class="admin">{{tmpAddr}}</div>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>
@@ -13,6 +13,10 @@
   </div>
 </div>
 
+<div [hidden]="!chain">
 <router-outlet></router-outlet>
+</div>
 
-</mat-sidenav-container></body>
+<div [hidden]="chain">
+  Check MetaMask extension
+</div>
